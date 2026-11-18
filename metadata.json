@@ -1,0 +1,6 @@
+{
+  "name": "OUROBOROS RAZANTE",
+  "description": "Console personnelle d'armure IA pour Prince Ezechiel à Abidjan — Ancrage Maître, Coffre-fort Mémoire, Espace Membre et Journal d'Activité hors-ligne.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

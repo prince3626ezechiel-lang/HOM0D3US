@@ -1,0 +1,278 @@
+{
+  "entities": {
+    "Member": {
+      "title": "Member",
+      "description": "Non-PII operator profile in the Ouroboros Razante member roster.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Firebase Auth UID of the member."
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "description": "Operator display name."
+        },
+        "callsign": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 40,
+          "pattern": "^[A-Z0-9_\\- ]+$",
+          "description": "HUD tactical callsign."
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "description": "Operational rank or title."
+        },
+        "city": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "description": "Primary operational city."
+        },
+        "role": {
+          "type": "string",
+          "enum": ["sovereign", "operator", "observer"],
+          "description": "Assigned role within the console."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["actif", "veille", "archive"],
+          "description": "Current operational status."
+        },
+        "photoUrl": {
+          "type": "string",
+          "maxLength": 500,
+          "description": "Optional avatar URL."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation server timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update server timestamp."
+        }
+      },
+      "required": ["uid", "displayName", "callsign", "title", "city", "role", "status", "createdAt", "updatedAt"]
+    },
+    "MemberPrivate": {
+      "title": "MemberPrivate",
+      "description": "Strictly isolated PII record for an operator.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "maxLength": 160
+        },
+        "clearanceNote": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "email", "createdAt", "updatedAt"]
+    },
+    "MasterAnchor": {
+      "title": "MasterAnchor",
+      "description": "Master Anchor Card configuration and sovereign operational directive for the operator.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "ownerName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "codename": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60
+        },
+        "location": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "coordinates": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60
+        },
+        "directive": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 600
+        },
+        "posture": {
+          "type": "string",
+          "enum": ["Souverain", "Vigilance", "Immersion", "Veille"]
+        },
+        "focusModules": {
+          "type": "array",
+          "description": "Up to 6 active armor modules."
+        },
+        "checkInCount": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "ownerName", "codename", "location", "coordinates", "directive", "posture", "focusModules", "checkInCount", "createdAt", "updatedAt"]
+    },
+    "VaultMemory": {
+      "title": "VaultMemory",
+      "description": "Encrypted-style personal memory vault entry.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 120
+        },
+        "category": {
+          "type": "string",
+          "enum": ["Protocole", "Mémoire", "Stratégie", "Technique", "Abidjan"]
+        },
+        "classification": {
+          "type": "string",
+          "enum": ["Souverain", "Confidentiel", "Opérationnel"]
+        },
+        "content": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 4000
+        },
+        "tags": {
+          "type": "array",
+          "description": "Bounded list of up to 8 tags."
+        },
+        "pinned": {
+          "type": "boolean"
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "title", "category", "classification", "content", "tags", "pinned", "source", "createdAt", "updatedAt"]
+    },
+    "ActivityEntry": {
+      "title": "ActivityEntry",
+      "description": "Timestamped console activity log entry.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "memberName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "actionType": {
+          "type": "string",
+          "enum": ["ANCRAGE", "MEMOIRE", "AUTH", "POSTURE", "SYNC"]
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 180
+        },
+        "details": {
+          "type": "string",
+          "maxLength": 600
+        },
+        "location": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "memberName", "actionType", "category", "summary", "location", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/members/{memberId}": {
+      "schema": { "$ref": "#/entities/Member" },
+      "description": "Operator profile records without PII."
+    },
+    "/members/{memberId}/private/{docId}": {
+      "schema": { "$ref": "#/entities/MemberPrivate" },
+      "description": "Isolated PII records accessible only by the owner or sovereign admin."
+    },
+    "/anchors/{anchorId}": {
+      "schema": { "$ref": "#/entities/MasterAnchor" },
+      "description": "Master Anchor Card state per operator."
+    },
+    "/vault_memories/{memoryId}": {
+      "schema": { "$ref": "#/entities/VaultMemory" },
+      "description": "Personal Memory Vault entries."
+    },
+    "/activity_history/{activityId}": {
+      "schema": { "$ref": "#/entities/ActivityEntry" },
+      "description": "Chronological activity journal for console actions."
+    }
+  }
+}
